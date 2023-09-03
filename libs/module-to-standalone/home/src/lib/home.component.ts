@@ -1,27 +1,15 @@
 import { TOKEN } from '@angular-challenges/module-to-standalone/core/providers';
 import { AuthorizationService } from '@angular-challenges/module-to-standalone/core/service';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-home',
-  template: `Home component
-
-    <section class="flex gap-5 items-center">
-      Authorization :
-      <button class="border p-2  " (click)="authorizeService.authorize()">
-        Authorize
-      </button>
-      <button class="border p-2  " (click)="authorizeService.forbid()">
-        Forbid
-      </button>
-      (isAuthorized: {{ authorizeService.isAuthorized$ | async }})
-    </section>
-
-    <section>LoadedToken {{ token }}</section> `,
+  templateUrl: './home.component.html',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class HomeComponent {
-  constructor(
-    public authorizeService: AuthorizationService,
-    @Inject(TOKEN) public token: string
-  ) {}
+  public authorizeService = inject(AuthorizationService);
+  public token = inject(TOKEN);
 }

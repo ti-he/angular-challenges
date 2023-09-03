@@ -1,4 +1,4 @@
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 
 import { AuthorizationService } from '@angular-challenges/module-to-standalone/core/service';
 import { Injectable } from '@angular/core';
@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class IsAuthorizedGuard implements CanActivate {
+export class IsAuthorizedGuard {
   constructor(
     private authorizationService: AuthorizationService,
     private router: Router

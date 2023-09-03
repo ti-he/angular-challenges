@@ -1,0 +1,19 @@
+-- User Panel --
+<div class="flex gap-2 items-center">
+  <button
+    routerLink="home"
+    class="border px-4 py-2 border-blue-400 rounded-md">
+    Home
+  </button>
+  <button
+    routerLink="contact"
+    class="border px-4 py-2 border-blue-400 rounded-md">
+    Contact
+  </button>
+  More buttons ...
+</div>
+<router-outlet></router-outlet>
+<section>
+  LoadedToken
+  {{ token }}
+</section>

@@ -1,13 +1,13 @@
 import { TOKEN } from '@angular-challenges/module-to-standalone/core/providers';
 import { AuthorizationService } from '@angular-challenges/module-to-standalone/core/service';
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'lib-home',
   templateUrl: './home.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [AsyncPipe],
 })
 export class HomeComponent {
   public authorizeService = inject(AuthorizationService);

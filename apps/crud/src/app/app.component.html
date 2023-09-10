@@ -1,4 +1,9 @@
 <div *ngFor="let todo of todos$ | async">
     {{ todo.title }}
     <button (click)="updateTodo(todo)">Update</button>
+    <button (click)="deleteTodo(todo)">Delete</button>
 </div>
+<div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+</div>
+

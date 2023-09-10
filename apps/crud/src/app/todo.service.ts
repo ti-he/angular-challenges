@@ -11,11 +11,11 @@ export class TodoService {
   http = inject(HttpClient);
   private baseUrl = 'https://jsonplaceholder.typicode.com';
 
-  getTodos(): Observable<todo[]> {
+  get(): Observable<todo[]> {
     return this.http.get<todo[]>(`${this.baseUrl}/todos`);
   }
 
-  updateTodo(newTodo: todo): Observable<todo> {
+  update(newTodo: todo): Observable<todo> {
     const data = JSON.stringify({
       userId: newTodo.userId,
       id: newTodo.id,
@@ -32,5 +32,9 @@ export class TodoService {
       data,
       params
     );
+  }
+
+  delete(todoToDelete: todo): Observable<object> {
+    return this.http.delete(`${this.baseUrl}/todos/${todoToDelete.id}`);
   }
 }

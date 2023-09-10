@@ -9,35 +9,71 @@ import {
 
 import { todo } from './todo.interface';
 import { TodoService } from './todo.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, switchMap, take } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styles: [],
+  styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   todos$: BehaviorSubject<todo[]> = new BehaviorSubject<todo[]>([]);
-  httpService = inject(TodoService);
+  todoService = inject(TodoService);
+  isLoading = false;
 
   ngOnInit(): void {
-    this.httpService.getTodos().subscribe((data) => {
+    this.isLoading = true;
+    this.todoService.get().subscribe((data) => {
       // call behavior subject with new value
       this.todos$.next(data);
+      this.isLoading = false;
     });
   }
 
   updateTodo(todoToUpdate: todo) {
-    this.httpService.updateTodo(todoToUpdate).subscribe((updatedTodo) => {
-      const todosValue = this.todos$.getValue();
-      const currentIdx = todosValue.findIndex(
-        (todo) => todo.id === updatedTodo.id
-      );
-      todosValue.splice(currentIdx, 1, updatedTodo);
-      this.todos$.next(todosValue);
-    });
+    this.isLoading = true;
+    this.todoService
+      .update(todoToUpdate)
+      .pipe(
+        switchMap((updatedTodo) => {
+          return this.todos$.pipe(
+            take(1),
+            map((todos) => {
+              const updatedIndex = todos.findIndex(
+                (todo) => todo.id === todoToUpdate.id
+              );
+              if (updatedIndex !== -1) {
+                const newTodos = [...todos];
+                newTodos[updatedIndex] = updatedTodo;
+                return newTodos;
+              }
+              return todos;
+            })
+          );
+        })
+      )
+      .subscribe((newTodos) => {
+        this.todos$.next(newTodos);
+        this.isLoading = false;
+      });
+  }
+
+  deleteTodo(todoToDelete: todo) {
+    this.isLoading = true;
+    this.todoService
+      .delete(todoToDelete)
+      .pipe(
+        switchMap(() => this.todos$),
+        take(1),
+        map((todos) => todos.filter((todo) => todo.id !== todoToDelete.id))
+      )
+      .subscribe((newTodos) => {
+        this.todos$.next(newTodos);
+        this.isLoading = false;
+      });
   }
 }

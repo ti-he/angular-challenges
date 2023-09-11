@@ -14,9 +14,15 @@ import { LoadingDisplayComponent } from './ui/loadingDisplay/loading-display.com
 import { ErrorHandlerService } from './core/error-handling/error-handler.service';
 import { ErrorDisplayComponent } from './ui/errorDisplay/error-display.component';
 import { LoadingService } from './core/loading.service';
+import { TodoItemComponent } from './core/todoItem/todo-item.component';
 @Component({
   standalone: true,
-  imports: [CommonModule, LoadingDisplayComponent, ErrorDisplayComponent],
+  imports: [
+    CommonModule,
+    TodoItemComponent,
+    LoadingDisplayComponent,
+    ErrorDisplayComponent,
+  ],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

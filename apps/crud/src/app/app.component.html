@@ -3,7 +3,5 @@
     <button (click)="updateTodo(todo)">Update</button>
     <button (click)="deleteTodo(todo)">Delete</button>
 </div>
-<div *ngIf="isLoading">
-    <app-loading-overlay></app-loading-overlay>
-</div>
-
+<app-loading-display></app-loading-display>
+<app-error-display></app-error-display>

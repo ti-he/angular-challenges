@@ -7,13 +7,16 @@ import {
   inject,
 } from '@angular/core';
 
-import { todo } from './todo.interface';
-import { TodoService } from './todo.service';
+import { todo } from './core/interfaces/todo';
+import { TodoService } from './core/todo.service';
 import { BehaviorSubject, map, switchMap, take } from 'rxjs';
-import { LoadingOverlayComponent } from './ui/loadingOverlay/loading-overlay.component';
+import { LoadingDisplayComponent } from './ui/loadingDisplay/loading-display.component';
+import { ErrorHandlerService } from './core/error-handling/error-handler.service';
+import { ErrorDisplayComponent } from './ui/errorDisplay/error-display.component';
+import { LoadingService } from './core/loading.service';
 @Component({
   standalone: true,
-  imports: [CommonModule, LoadingOverlayComponent],
+  imports: [CommonModule, LoadingDisplayComponent, ErrorDisplayComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -22,19 +25,24 @@ import { LoadingOverlayComponent } from './ui/loadingOverlay/loading-overlay.com
 export class AppComponent implements OnInit {
   todos$: BehaviorSubject<todo[]> = new BehaviorSubject<todo[]>([]);
   todoService = inject(TodoService);
-  isLoading = false;
+  loadingService = inject(LoadingService);
+  errorHandlerService = inject(ErrorHandlerService);
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this.errorHandlerService.getErrorMessage().subscribe(() => {
+      this.loadingService.setIsLoading(false);
+    });
+
+    this.loadingService.setIsLoading(true);
     this.todoService.get().subscribe((data) => {
       // call behavior subject with new value
       this.todos$.next(data);
-      this.isLoading = false;
+      this.loadingService.setIsLoading(false);
     });
   }
 
   updateTodo(todoToUpdate: todo) {
-    this.isLoading = true;
+    this.loadingService.setIsLoading(true);
     this.todoService
       .update(todoToUpdate)
       .pipe(
@@ -57,12 +65,12 @@ export class AppComponent implements OnInit {
       )
       .subscribe((newTodos) => {
         this.todos$.next(newTodos);
-        this.isLoading = false;
+        this.loadingService.setIsLoading(false);
       });
   }
 
   deleteTodo(todoToDelete: todo) {
-    this.isLoading = true;
+    this.loadingService.setIsLoading(true);
     this.todoService
       .delete(todoToDelete)
       .pipe(
@@ -72,7 +80,7 @@ export class AppComponent implements OnInit {
       )
       .subscribe((newTodos) => {
         this.todos$.next(newTodos);
-        this.isLoading = false;
+        this.loadingService.setIsLoading(false);
       });
   }
 }

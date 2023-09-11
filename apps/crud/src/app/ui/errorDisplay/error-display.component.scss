@@ -1,0 +1,16 @@
+.error-display {
+    position: fixed;
+    bottom: 0;
+    height: min-content;
+    width: 100%;
+    padding: 20px;
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkred;
+}
+
+.close-btn {
+    margin-left: 10px;
+}

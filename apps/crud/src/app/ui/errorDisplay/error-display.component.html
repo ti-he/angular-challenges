@@ -1,0 +1,4 @@
+<div *ngIf="(errorMsg$ | async)?.length" class="error-display">
+    {{ errorMsg$ | async }}
+    <button (click)="errorHandlerService.showError('')" class="close-btn">Close</button>
+</div>

@@ -1,14 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { todo } from './todo.interface';
+import { todo } from './interfaces/todo';
 import { randText } from '@ngneat/falso';
 import { Observable } from 'rxjs';
+import { ErrorHandlerService } from './error-handling/error-handler.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   http = inject(HttpClient);
+  errorHandlerService = inject(ErrorHandlerService);
+
   private baseUrl = 'https://jsonplaceholder.typicode.com';
 
   get(): Observable<todo[]> {

@@ -3,7 +3,7 @@
     <button (click)="updateTodo(todo)">Update</button>
     <button (click)="deleteTodo(todo)">Delete</button>
 </div>
-<div *ngIf="isLoading" class="loading-overlay">
-    <mat-spinner></mat-spinner>
+<div *ngIf="isLoading">
+    <app-loading-overlay></app-loading-overlay>
 </div>
 

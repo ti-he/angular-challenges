@@ -10,11 +10,10 @@ import {
 import { todo } from './todo.interface';
 import { TodoService } from './todo.service';
 import { BehaviorSubject, map, switchMap, take } from 'rxjs';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { LoadingOverlayComponent } from './ui/loadingOverlay/loading-overlay.component';
 @Component({
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule],
+  imports: [CommonModule, LoadingOverlayComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

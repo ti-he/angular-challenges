@@ -4,6 +4,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  QueryList,
+  ViewChildren,
   inject,
 } from '@angular/core';
 
@@ -12,8 +14,8 @@ import { TodoService } from './core/todo.service';
 import { BehaviorSubject, map, switchMap, take } from 'rxjs';
 import { ErrorHandlerService } from './core/error-handling/error-handler.service';
 import { ErrorDisplayComponent } from './ui/errorDisplay/error-display.component';
-import { LoadingService } from './core/loading.service';
 import { TodoItemComponent } from './core/todoItem/todo-item.component';
+import { LoadingService } from './core/loading.service';
 @Component({
   standalone: true,
   imports: [CommonModule, TodoItemComponent, ErrorDisplayComponent],
@@ -27,6 +29,8 @@ export class AppComponent implements OnInit {
   todoService = inject(TodoService);
   loadingService = inject(LoadingService);
   errorHandlerService = inject(ErrorHandlerService);
+  @ViewChildren(TodoItemComponent)
+  todoItems!: QueryList<TodoItemComponent>;
 
   ngOnInit(): void {
     this.errorHandlerService.getErrorMessage().subscribe(() => {
@@ -35,14 +39,13 @@ export class AppComponent implements OnInit {
 
     this.loadingService.setIsLoading(true);
     this.todoService.get().subscribe((data) => {
-      // call behavior subject with new value
       this.todos$.next(data);
       this.loadingService.setIsLoading(false);
     });
   }
 
-  updateTodo(todoToUpdate: todo) {
-    this.loadingService.setIsLoading(true);
+  updateTodo(todoToUpdate: todo, idx: number) {
+    this.todoItems.get(idx)?.isLoading.set(true);
     this.todoService
       .update(todoToUpdate)
       .pipe(
@@ -65,12 +68,12 @@ export class AppComponent implements OnInit {
       )
       .subscribe((newTodos) => {
         this.todos$.next(newTodos);
-        this.loadingService.setIsLoading(false);
+        this.todoItems.get(idx)?.isLoading.set(false);
       });
   }
 
-  deleteTodo(todoToDelete: todo) {
-    this.loadingService.setIsLoading(true);
+  deleteTodo(todoToDelete: todo, idx: number) {
+    this.todoItems.get(idx)?.isLoading.set(true);
     this.todoService
       .delete(todoToDelete)
       .pipe(
@@ -80,7 +83,6 @@ export class AppComponent implements OnInit {
       )
       .subscribe((newTodos) => {
         this.todos$.next(newTodos);
-        this.loadingService.setIsLoading(false);
       });
   }
 }

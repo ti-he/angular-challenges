@@ -5,6 +5,7 @@ import {
   Input,
   Output,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { todo } from '../interfaces/todo';
@@ -24,4 +25,5 @@ export class TodoItemComponent {
   @Input() todo!: todo;
   @Output() public update: EventEmitter<void> = new EventEmitter<void>();
   @Output() public delete: EventEmitter<void> = new EventEmitter<void>();
+  public isLoading = signal(false);
 }

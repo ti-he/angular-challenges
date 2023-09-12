@@ -1,8 +1,8 @@
-<div *ngFor="let todo of todos$ | async">
+<div *ngFor="let todo of todos$ | async; let idx = index;">
     <app-todo-item 
         [todo]="todo"
-        (update)="updateTodo(todo)"
-        (delete)="deleteTodo(todo)">
+        (update)="updateTodo(todo, idx)"
+        (delete)="deleteTodo(todo, idx)">
     </app-todo-item>
 </div>
 <app-error-display></app-error-display>

@@ -20,7 +20,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'An error occurred';
+        let errorMessage = 'Yikes.';
 
         if (error.error instanceof ErrorEvent) {
           // Client-side error
@@ -31,8 +31,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }
 
         this.errorHandlerService.showError(errorMessage);
-        //throw(() => error);
-        return [];
+        throw () => error;
       })
     );
   }

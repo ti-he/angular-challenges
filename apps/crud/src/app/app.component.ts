@@ -11,7 +11,7 @@ import {
 
 import { todo } from './core/interfaces/todo';
 import { TodoService } from './core/todo.service';
-import { BehaviorSubject, map, switchMap, take } from 'rxjs';
+import { BehaviorSubject, finalize, map, switchMap, take } from 'rxjs';
 import { ErrorHandlerService } from './core/error-handling/error-handler.service';
 import { ErrorDisplayComponent } from './ui/errorDisplay/error-display.component';
 import { TodoItemComponent } from './core/todoItem/todo-item.component';
@@ -64,11 +64,18 @@ export class AppComponent implements OnInit {
               return todos;
             })
           );
+        }),
+        finalize(() => {
+          this.todoItems.get(idx)?.isLoading.set(false);
         })
       )
-      .subscribe((newTodos) => {
-        this.todos$.next(newTodos);
-        this.todoItems.get(idx)?.isLoading.set(false);
+      .subscribe({
+        next: (newTodos) => {
+          this.todos$.next(newTodos);
+        },
+        error: (error) => {
+          // Could do further error handling here
+        },
       });
   }
 
@@ -79,7 +86,10 @@ export class AppComponent implements OnInit {
       .pipe(
         switchMap(() => this.todos$),
         take(1),
-        map((todos) => todos.filter((todo) => todo.id !== todoToDelete.id))
+        map((todos) => todos.filter((todo) => todo.id !== todoToDelete.id)),
+        finalize(() => {
+          this.todoItems.get(idx)?.isLoading.set(false);
+        })
       )
       .subscribe((newTodos) => {
         this.todos$.next(newTodos);

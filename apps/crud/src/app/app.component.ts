@@ -10,19 +10,13 @@ import {
 import { todo } from './core/interfaces/todo';
 import { TodoService } from './core/todo.service';
 import { BehaviorSubject, map, switchMap, take } from 'rxjs';
-import { LoadingDisplayComponent } from './ui/loadingDisplay/loading-display.component';
 import { ErrorHandlerService } from './core/error-handling/error-handler.service';
 import { ErrorDisplayComponent } from './ui/errorDisplay/error-display.component';
 import { LoadingService } from './core/loading.service';
 import { TodoItemComponent } from './core/todoItem/todo-item.component';
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    TodoItemComponent,
-    LoadingDisplayComponent,
-    ErrorDisplayComponent,
-  ],
+  imports: [CommonModule, TodoItemComponent, ErrorDisplayComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

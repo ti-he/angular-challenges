@@ -1,0 +1,6 @@
+<div class="todo-item">
+    {{ todo.title }}
+    <button (click)="update.emit()" [disabled]="loadingService.getIsLoading() | async">Update</button>
+    <button (click)="delete.emit()" [disabled]="loadingService.getIsLoading() | async">Delete</button>
+    <app-loading-display [diameter]="25"></app-loading-display>
+</div>

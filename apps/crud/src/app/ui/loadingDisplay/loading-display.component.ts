@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
+  Input,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,4 +18,5 @@ import { LoadingService } from '../../core/loading.service';
 })
 export class LoadingDisplayComponent {
   public loadingService = inject(LoadingService);
+  @Input() diameter = 50;
 }

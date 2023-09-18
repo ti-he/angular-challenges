@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './test.component.html',
 })
 export default class TestComponent {
-  @Input('testId') testId = '';
-  @Input('permission') permission = '';
-  @Input('user') user = '';
+  @Input() testId = '';
+  @Input() permission = '';
+  @Input() user = '';
 }

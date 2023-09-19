@@ -1,0 +1,8 @@
+<mat-form-field class="w-4/5" cd-flash>
+    <input
+      placeholder="Add one member to the list"
+      matInput
+      type="text"
+      [(ngModel)]="value"
+      (keydown)="handleKey($event)" />
+</mat-form-field>

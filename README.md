@@ -54,7 +54,7 @@ If you would like to propose a challenge, this project is open source, so feel f
 </br>
 <img src="https://img.shields.io/badge/Angular performance--gray?logo=angular" alt="Angular performance"/>
 
-<a href="./apps/performance/default-onpush/README.md"><img src="https://img.shields.io/badge/34-Default vs OnPush-yellow" alt="default onPush"/></a>
+<a href="./apps/performance/default-onpush/README.md"><img src="https://img.shields.io/badge/34-Default vs OnPush-green" alt="default onPush"/></a>
 
 </br>
 <img src="https://img.shields.io/badge/Typescript--gray?logo=typescript" alt="Typescript"/>
@@ -65,7 +65,7 @@ If you would like to propose a challenge, this project is open source, so feel f
 <img src="https://img.shields.io/badge/RxJs--gray?logo=reactivex" alt="RxJs"/>
 
 <a href="./apps/rxjs-pipe-bug/README.md"><img src="https://img.shields.io/badge/11-BUG: chaining operators-orange" alt="Bug rxjs chaining operators"/></a>
-<a href="./apps/rxjs-race-condition/README.md"><img src="https://img.shields.io/badge/14-race condition-yellow" alt="Rxjs race condition"/></a>
+<a href="./apps/rxjs-race-condition/README.md"><img src="https://img.shields.io/badge/14-race condition-green" alt="Rxjs race condition"/></a>
 
 <!-- <a href="./apps/declarative-to-reactive/README.md"><img src="https://img.shields.io/badge/13-declarative to reactive-green" alt="Declarative to reactive programming"/></a> -->
 
@@ -82,7 +82,7 @@ If you would like to propose a challenge, this project is open source, so feel f
 <a href="./apps/testing-nested/README.md"><img src="https://img.shields.io/badge/18-Nested Comp Testing-orange" alt="nested component Testing"/></a>
 <a href="./apps/testing-input-output/README.md"><img src="https://img.shields.io/badge/19-Input Output Testing-orange" alt="input output Testing"/></a>
 <a href="./apps/testing-modal/README.md"><img src="https://img.shields.io/badge/20-Modal Testing-orange" alt="modal Testing"/></a>
-<a href="./apps/testing-harness/README.md"><img src="https://img.shields.io/badge/23-Harness Testing-yellow" alt="harness Testing"/></a>
+<a href="./apps/testing-harness/README.md"><img src="https://img.shields.io/badge/23-Harness Testing-green" alt="harness Testing"/></a>
 <a href="./apps/create-harness/README.md"><img src="https://img.shields.io/badge/24-Create Harness-orange" alt="Create harness"/></a>
 <a href="./apps/testing-checkbox/README.md"><img src="https://img.shields.io/badge/28-Checkbox Testing-yellow" alt="Test a simple checkbox"/></a>
 <a href="./apps/testing-todos-list/README.md"><img src="https://img.shields.io/badge/29-Real application Testing-red" alt="Test a real application"/></a>

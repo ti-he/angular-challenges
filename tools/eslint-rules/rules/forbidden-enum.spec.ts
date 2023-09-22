@@ -6,6 +6,37 @@ const ruleTester = new TSESLint.RuleTester({
 });
 
 ruleTester.run(RULE_NAME, rule, {
-  valid: [`const example = true;`],
-  invalid: [],
+  valid: [],
+  invalid: [
+    {
+      code: 'enum Color { Red, Green, Blue }',
+      errors: [
+        {
+          messageId: 'noTypescriptEnum',
+          column: 1,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'const enum Cars { Ford, BMW, Honda }',
+      errors: [
+        {
+          messageId: 'noTypescriptEnum',
+          column: 1,
+          line: 1,
+        },
+      ],
+    },
+    {
+      code: 'const enum Weekdays { MONDAY = "Monday", TUESDAY = "Tuesday", Sunday = "Sunday" }',
+      errors: [
+        {
+          messageId: 'noTypescriptEnum',
+          column: 1,
+          line: 1,
+        },
+      ],
+    },
+  ],
 });

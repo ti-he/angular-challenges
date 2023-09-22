@@ -15,6 +15,7 @@
  */
 
 import { ESLintUtils } from '@typescript-eslint/utils';
+import type { TSESTree } from '@typescript-eslint/utils';
 
 // NOTE: The rule will be available in ESLint configs as "@nx/workspace/forbidden-enum"
 export const RULE_NAME = 'forbidden-enum';
@@ -24,14 +25,25 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
   meta: {
     type: 'problem',
     docs: {
-      description: ``,
+      description: `Disallow TypeScript enums`,
       recommended: 'error',
     },
     schema: [],
-    messages: {},
+    messages: {
+      noTypescriptEnum:
+        'Avoid using TypeScript enums. Use type unions instead.',
+    },
   },
   defaultOptions: [],
   create(context) {
-    return {};
+    return {
+      // When an enum is found in the AST
+      TSEnumDeclaration(node: TSESTree.TSEnumDeclaration): void {
+        context.report({
+          node: node,
+          messageId: 'noTypescriptEnum',
+        });
+      },
+    };
   },
 });

@@ -1,5 +1,16 @@
 import { Component } from '@angular/core';
 
+enum IAmEvil {
+  hello = 'hello',
+  world = 'world',
+}
+
+enum Color {
+  Red,
+  Green,
+  Blue,
+}
+
 @Component({
   standalone: true,
   selector: 'app-root',

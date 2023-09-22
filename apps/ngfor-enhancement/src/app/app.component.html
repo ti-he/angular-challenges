@@ -1,0 +1,7 @@
+<button (click)="empty()">Empty List</button>
+<button (click)="addPerson()">Add Person</button>
+
+<div *appNgForCustom="let person of persons; empty: emptyList">
+    {{ person.name}}, {{ person.age }}
+</div>
+<ng-template #emptyList><div>The list is empty !!</div></ng-template>

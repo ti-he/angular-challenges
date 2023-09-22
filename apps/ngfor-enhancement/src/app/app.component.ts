@@ -1,25 +1,46 @@
-import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgForCustomDirective } from './ngForCustom.directive';
 
-interface Person {
+export interface Person {
   name: string;
+  age: number;
 }
+
+const randomPersons = [
+  {
+    name: 'John',
+    age: 20,
+  },
+  {
+    name: 'Jane',
+    age: 21,
+  },
+  {
+    name: 'Jack',
+    age: 22,
+  },
+];
 
 @Component({
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgForCustomDirective],
   selector: 'app-root',
-  template: `
-    <ng-container *ngIf="persons.length > 0; else emptyList">
-      <div *ngFor="let person of persons">
-        {{ person.name }}
-      </div>
-    </ng-container>
-    <ng-template #emptyList>The list is empty !!</ng-template>
-  `,
-  styles: [],
+  templateUrl: `./app.component.html`,
+  styles: ['button { margin: 5px; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   persons: Person[] = [];
+
+  empty() {
+    this.persons = [];
+  }
+
+  addPerson() {
+    // This works because we use DoCheck in the directive.
+    // With OnChanges, we would have to create a new array.
+    this.persons.push(
+      randomPersons[Math.floor(Math.random() * randomPersons.length)]
+    );
+  }
 }
